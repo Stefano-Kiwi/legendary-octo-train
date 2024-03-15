@@ -9,7 +9,7 @@ const app = new Application<HTMLCanvasElement>({
 	height: 480
 });
 
-const clampy: Sprite = Sprite.from("clampy.png");
+const clampy: Sprite = Sprite.from("soldado-metal.png");
 
 clampy.anchor.set(0.5);
 
