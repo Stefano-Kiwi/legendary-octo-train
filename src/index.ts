@@ -1,4 +1,4 @@
-import { Application, Assets,  AssetsManifest,  Sprite } from 'pixi.js'
+import { Application, Assets,  AssetsManifest,  Container,  Sprite } from 'pixi.js'
 
 const app = new Application<HTMLCanvasElement>({
 	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
@@ -12,11 +12,11 @@ const app = new Application<HTMLCanvasElement>({
 export const manifest:AssetsManifest  = {
     bundles: [
         {
-            name : "bundleName",
+            name : "bundle-1",
             assets:
             {
                 "Clampy" : "./clampy.png",
-                //"Another file" : "./another.png",
+                "Hat" : "./hat.png",
             }
         },
     ]
@@ -51,20 +51,29 @@ async function init() {
     await Assets.init({ manifest: manifest });
 
     // Load the bundles you need
-    await Assets.loadBundle("bundleName");
+    await Assets.loadBundle("bundle-1");
 }
+
 
 init();
 
+
 const esqueleto: Sprite = Sprite.from("./esqueletito.png");
 
-console.log("el tamaño es",esqueleto.width,esqueleto.height)
-esqueleto.anchor.set(0.5);
+esqueleto.position.set(0,0);
 
-esqueleto.x = app.screen.width / 2;
-esqueleto.y = app.screen.height / 2;
+const hat: Sprite = Sprite.from("./hat.png");
 
-esqueleto.scale.x = 1;
-esqueleto.scale.y = 1;
+hat.position.set(30,-30);
+hat.angle = -30;
 
-app.stage.addChild(esqueleto);
+const esqueletoWithHat: Container = new Container();
+
+esqueletoWithHat.scale.set(0.5,0.5);
+esqueletoWithHat.x = 100;
+esqueletoWithHat.y = 100;
+
+esqueletoWithHat.addChild(esqueleto);
+esqueletoWithHat.addChild(hat);
+
+app.stage.addChild(esqueletoWithHat);
