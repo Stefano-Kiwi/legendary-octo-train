@@ -1,4 +1,5 @@
-import { Application, Assets,  AssetsManifest,  Container,  Sprite } from 'pixi.js'
+import { Application} from 'pixi.js'
+import { Scene } from './Scene';
 
 const app = new Application<HTMLCanvasElement>({
 	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
@@ -8,7 +9,7 @@ const app = new Application<HTMLCanvasElement>({
 	width: 1280,
 	height: 720
 });
-
+/*
 export const manifest:AssetsManifest  = {
     bundles: [
         {
@@ -21,7 +22,7 @@ export const manifest:AssetsManifest  = {
         },
     ]
 }
-
+*/
 window.addEventListener("resize", ()=>{
 	console.log("resized!");
 	const scaleX = window.innerWidth / app.screen.width;
@@ -44,7 +45,7 @@ window.addEventListener("resize", ()=>{
 	app.view.style.marginBottom = marginVertical + "px";
 });
 window.dispatchEvent(new Event("resize"));
-
+/*
 async function init() {
     // Assets.init must only happen once! 
     // Pack all your bundles into one manifest!
@@ -56,24 +57,8 @@ async function init() {
 
 
 init();
+*/
 
+const escena1: Scene = new Scene();
 
-const esqueleto: Sprite = Sprite.from("./esqueletito.png");
-
-esqueleto.position.set(0,0);
-
-const hat: Sprite = Sprite.from("./hat.png");
-
-hat.position.set(30,-30);
-hat.angle = -30;
-
-const esqueletoWithHat: Container = new Container();
-
-esqueletoWithHat.scale.set(0.5,0.5);
-esqueletoWithHat.x = 100;
-esqueletoWithHat.y = 100;
-
-esqueletoWithHat.addChild(esqueleto);
-esqueletoWithHat.addChild(hat);
-
-app.stage.addChild(esqueletoWithHat);
+app.stage.addChild(escena1);
