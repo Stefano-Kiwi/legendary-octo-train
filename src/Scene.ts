@@ -1,16 +1,24 @@
-import { Container } from "pixi.js";
-import {AdventurerWithHat } from "./AdventurerWithHat";
+import { AnimatedSprite, Container, Texture } from "pixi.js";
+import {BoyWithHat } from "./boyWithHat";
 
 export class Scene extends Container {
   constructor() {
     super();
 
-    const skeletonWithHat: AdventurerWithHat = new AdventurerWithHat();
+    const boyWithHat: BoyWithHat = new BoyWithHat();
 
-    skeletonWithHat.scale.set(0.5, 0.5);
-    skeletonWithHat.x = 100;
-    skeletonWithHat.y = 100;
+    boyWithHat.scale.set(0.5, 0.5);
+    boyWithHat.x = 100;
+    boyWithHat.y = 100;
+    this.addChild(boyWithHat);
 
-    this.addChild(skeletonWithHat);
+    const boyAnimated: AnimatedSprite = new AnimatedSprite(
+      [
+        Texture.from("./adventurer/walk-01.png")
+
+      ]
+    );
+
+    this.addChild(boyAnimated);
   }
 }
