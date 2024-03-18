@@ -1,5 +1,6 @@
-import { Application} from 'pixi.js'
+import { Application, Assets} from 'pixi.js'
 import { Scene } from './Scene';
+import { manifest } from './manifest';
 
 const app = new Application<HTMLCanvasElement>({
 	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
@@ -9,20 +10,7 @@ const app = new Application<HTMLCanvasElement>({
 	width: 1280,
 	height: 720
 });
-/*
-export const manifest:AssetsManifest  = {
-    bundles: [
-        {
-            name : "bundle-1",
-            assets:
-            {
-                "Clampy" : "./clampy.png",
-                "Hat" : "./hat.png",
-            }
-        },
-    ]
-}
-*/
+
 window.addEventListener("resize", ()=>{
 	console.log("resized!");
 	const scaleX = window.innerWidth / app.screen.width;
@@ -45,19 +33,16 @@ window.addEventListener("resize", ()=>{
 	app.view.style.marginBottom = marginVertical + "px";
 });
 window.dispatchEvent(new Event("resize"));
-/*
+
 async function init() {
-    // Assets.init must only happen once! 
-    // Pack all your bundles into one manifest!
+    // Assets.init debe llamarse solo una vez. Agrupar todos los bundles en un manifest
     await Assets.init({ manifest: manifest });
 
-    // Load the bundles you need
-    await Assets.loadBundle("bundle-1");
+    // Carga los bundles que necesites
+    await Assets.loadBundle("bundleName");
 }
 
-
 init();
-*/
 
 const escena1: Scene = new Scene();
 
