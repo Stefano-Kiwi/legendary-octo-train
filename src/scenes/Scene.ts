@@ -5,8 +5,8 @@ import {
   Texture,
   Text,
 } from "pixi.js";
-import { BoyWithHat } from "./boyWithHat";
-import { EndPanel } from "./EndPanel";
+import { BoyWithHat } from "../game/boyWithHat";
+import { EndPanel } from "../EndPanel";
 
 export class Scene extends Container {
   constructor() {

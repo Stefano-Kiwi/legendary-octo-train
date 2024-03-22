@@ -1,4 +1,4 @@
-import { Container, NineSlicePlane, Texture, Text, Sprite } from "pixi.js";
+import { Container, NineSlicePlane, Texture, Text, Sprite} from "pixi.js";
 
 export class EndPanel extends Container {
   constructor(puntos:number) {
@@ -53,8 +53,24 @@ export class EndPanel extends Container {
     const home = Sprite.from("./ui/Icon04.png");
     this.addChild(home);
     home.position.set(440,590);
-    const siguiente = Sprite.from("./ui/Arrow01.png");
+
+
+
+    const siguiente = Sprite.from("./ui/play1.png");
     this.addChild(siguiente);
     siguiente.position.set(750,610);
+   /* siguiente.on("mousedown", (event: FederatedPointerEvent) => {
+      this.onMouseDown(event); // Llama a la función onMouseDown con el evento como argumento
+    });
+    siguiente.interactive = true;
+    */
+
+  
+
   }
+  /*
+  private onMouseDown(event: FederatedPointerEvent): void {
+    console.log("mouse down", "ahora");
+  }
+  */
 }

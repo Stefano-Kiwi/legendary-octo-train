@@ -1,15 +1,23 @@
-import { Application, Assets} from 'pixi.js'
-import { Scene } from './Scene';
+import { Application, Assets, Ticker} from 'pixi.js'
 import { manifest } from './manifest';
+import { Keyboard } from './utils/Keyboard';
+
+import { MemoriesDvd } from './scenes/MemoriesDvd';
+
+export const WIDTH = 1920;
+export const HEIGHT = 1080;
+
 
 const app = new Application<HTMLCanvasElement>({
 	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
 	resolution: window.devicePixelRatio || 1,
 	autoDensity: true,
 	backgroundColor: 0x6495ed,
-	width: 1280,
-	height: 720
+	width: WIDTH,
+	height: HEIGHT
 });
+
+Keyboard.initialize();
 
 window.addEventListener("resize", ()=>{
 	console.log("resized!");
@@ -40,10 +48,14 @@ async function init() {
 
     // Carga los bundles que necesites
     await Assets.loadBundle("bundleName");
+
 }
 
 init();
 
-const escena1: Scene = new Scene();
+const escena1: MemoriesDvd = new MemoriesDvd();
+	Ticker.shared.add(function (deltaFrame){
+	escena1.update(Ticker.shared.deltaMS,deltaFrame);
+})
 
 app.stage.addChild(escena1);
