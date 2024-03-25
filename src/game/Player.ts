@@ -1,11 +1,13 @@
-import { AnimatedSprite, Graphics, Rectangle, Texture } from "pixi.js";
+import { AnimatedSprite, Graphics, ObservablePoint, Rectangle, Texture } from "pixi.js";
 import { PhysicsContainer } from "./PhysicsContainer";
 import { Keyboard } from "../utils/Keyboard";
 
 export class Player extends PhysicsContainer{
 
-    private static readonly GRAVITY = 100;
+
+    private static readonly GRAVITY = 400;
     private static readonly MOVE_SPEED = 350;
+    private static readonly JUMP_SPEED = 500;
     
     private boyAnimated:AnimatedSprite;
     public canJump = true;
@@ -74,6 +76,11 @@ export class Player extends PhysicsContainer{
             this.speed.x = 0;
         }
 
+        if(Keyboard.state.get("ArrowDown")){
+            this.acceleration.y = Player.GRAVITY*2;
+        }else{
+            this.acceleration.y = Player.GRAVITY;
+        }
         /*
         if(Keyboard.state.get("ArrowUp") && this.canJump){
             this.jump();
@@ -84,11 +91,43 @@ export class Player extends PhysicsContainer{
     private jump(){
         if(this.canJump){
             this.canJump = false;
-            this.speed.y = -300;
+            this.speed.y = -Player.JUMP_SPEED;
         }
     }
     
     public getHitbox(): Rectangle{
         return this.hitbox.getBounds();
+    }
+
+    public separate(overlap: Rectangle, platform: ObservablePoint<any>) {
+        if(overlap.width < overlap.height){
+
+            if(this.x > platform.x){
+                this.x -= overlap.width;
+
+            }else if(this.x < platform.x){
+                this.x -= overlap.width;
+            }
+            
+            if(this.x > platform.x){
+                this.x -= overlap.width;
+
+            }else if(this.x < platform.x){
+                this.x -= overlap.width;
+            }
+
+
+        }else{
+            if(this.y > platform.y){
+                this.y -= overlap.height;
+                this.speed.y = 0;
+                this.canJump = true;
+
+            }else if(this.y < platform.y){
+                this.y += overlap.height;
+            }
+
+
+        }
     }
 }
