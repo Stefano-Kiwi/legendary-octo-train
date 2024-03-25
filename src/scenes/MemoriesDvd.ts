@@ -6,6 +6,8 @@ import { HEIGHT, WIDTH } from "..";
 export class MemoriesDvd extends Container implements IUpdateable{
 
     private dvd: Sprite;
+    private ranita: Sprite;
+    private physRanita: PhysicsContainer;
     private physDvd: PhysicsContainer;
     private auxOne: Graphics;
     constructor(){
@@ -33,7 +35,20 @@ export class MemoriesDvd extends Container implements IUpdateable{
         this.auxOne.endFill();
         this.auxOne.y -= 150;
         
+        // RANITA
+        this.ranita = Sprite.from("./ranita.png");
+        this.ranita.anchor.set(0.5,0.8);
+        this.addChild(this.ranita);
+
+        this.physRanita = new PhysicsContainer();
+        this.physRanita.position.set(800,800);
+        this.physRanita.speed.x = 900;
+        this.physRanita.speed.y = 0;
+        this.physRanita.acceleration.y = 500;
+        this.addChild(this.physRanita);
+
         this.physDvd.addChild(this.dvd,auxZero,this.auxOne);
+        this.physRanita.addChild(this.ranita);
     }
     update(deltaTime: number, _deltaFrame?: number | undefined): void {
         const dt = deltaTime / 1000; // Va a dar segundos
@@ -63,7 +78,30 @@ export class MemoriesDvd extends Container implements IUpdateable{
             this.physDvd.speed.y = 1500 * Math.random();
         }
         
+        // RANITA
+        this.physRanita.update(dt);
 
+        // LIMITE DERECHA
+        if(this.physRanita.x + this.physRanita.width > WIDTH){
+            this.physRanita.x = WIDTH - this.physRanita.width;
+            this.physRanita.speed.x = Math.abs(this.physRanita.speed.x)*(-1);
+            this.physRanita.scale.x = -1;
+        }else if(this.physRanita.x < 0){ // LIMITE IZQUIERDA
+            this.physRanita.x = 0;
+            this.physRanita.speed.x = Math.abs(this.physRanita.speed.x);
+            this.physRanita.scale.x = 1;
+        }
+
+        //LIMITE INFERIOR
+        if(this.physRanita.y > HEIGHT){
+            this.physRanita.y = HEIGHT;
+            this.physRanita.speed.y = -1500 *Math.random();
+            this.ranita.tint = 0x00ff99;
+        }else if(this.physRanita.y-170 < 0){   //LIMITE SUPERIOR
+            console.log("posicion en y, ranita=",this.physRanita.y);
+            this.physRanita.y = 150;
+            this.physRanita.speed.y = 1500 * Math.random();
+        }
     }
 
 }

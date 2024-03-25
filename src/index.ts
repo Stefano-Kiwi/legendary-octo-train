@@ -2,7 +2,8 @@ import { Application, Assets, Ticker} from 'pixi.js'
 import { manifest } from './manifest';
 import { Keyboard } from './utils/Keyboard';
 
-import { MemoriesDvd } from './scenes/MemoriesDvd';
+
+import { TickerScene } from './scenes/TickerScene';
 
 export const WIDTH = 1920;
 export const HEIGHT = 1080;
@@ -53,7 +54,7 @@ async function init() {
 
 init();
 
-const escena1: MemoriesDvd = new MemoriesDvd();
+const escena1: TickerScene = new TickerScene();
 	Ticker.shared.add(function (deltaFrame){
 	escena1.update(Ticker.shared.deltaMS,deltaFrame);
 })
